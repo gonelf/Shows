@@ -1,5 +1,5 @@
 import type { Show } from '../types'
-import { posterGradient, relativeDate } from '../utils'
+import { coverArt, posterGradient, relativeDate } from '../utils'
 import { ScoreChip } from './ScoreChip'
 
 interface Props {
@@ -21,6 +21,7 @@ export function PosterCard({ show, onOpen, showDate, rank, wide }: Props) {
       aria-label={`Open ${show.title}`}
     >
       <div className="poster" style={{ background: posterGradient(show.id) }}>
+        <img className="art" src={coverArt(show)} alt="" loading="lazy" />
         {rank != null && <span className="rank">{rank}</span>}
         <span className="motif">{show.emoji}</span>
         <div className="info">

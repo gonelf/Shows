@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import type { Show } from '../types'
 import { TIER_META, tierOf } from '../data/shows'
-import { formatCount, posterGradient, relativeDate } from '../utils'
+import { coverArt, formatCount, posterGradient, relativeDate } from '../utils'
 import { ScoreChip } from './ScoreChip'
 
 interface Props {
@@ -31,6 +31,7 @@ export function ShowSheet({ show, saved, onToggleSave, onClose }: Props) {
       <div className="sheet" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal>
         <div className="grip" />
         <div className="hero" style={{ background: posterGradient(show.id) }}>
+          <img className="art" src={coverArt(show)} alt="" loading="lazy" />
           <span className="motif">{show.emoji}</span>
         </div>
         <div className="body">

@@ -1,5 +1,5 @@
 import type { Show } from '../types'
-import { posterGradient } from '../utils'
+import { coverArt, posterGradient } from '../utils'
 import { ScoreChip } from './ScoreChip'
 
 interface Props {
@@ -15,7 +15,8 @@ export function ListRow({ show, onOpen, rank, trail }: Props) {
     <button className="row" onClick={() => onOpen(show.id)}>
       {rank != null && <span className="rank-n">{rank}</span>}
       <div className="thumb" style={{ background: posterGradient(show.id) }}>
-        {show.emoji}
+        <img className="art" src={coverArt(show)} alt="" loading="lazy" />
+        <span className="motif">{show.emoji}</span>
       </div>
       <div className="body">
         <p className="title">{show.title}</p>
