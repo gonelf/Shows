@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { TimeRange } from './types'
 import { getShow } from './data/shows'
+import { useShows } from './useShows'
 import { useWatchlist } from './useWatchlist'
 import { BottomNav, type Tab } from './components/BottomNav'
 import { TimeToggle } from './components/TimeToggle'
@@ -23,7 +24,15 @@ export default function App() {
   const [tab, setTab] = useState<Tab>('home')
   const [range, setRange] = useState<TimeRange>('week')
   const [openId, setOpenId] = useState<string | null>(null)
+  const status = useShows()
   const watchlist = useWatchlist()
+
+  const subtitle =
+    status === 'loading'
+      ? 'Loading live data…'
+      : status === 'live'
+        ? 'Live · powered by TMDB'
+        : 'What to watch, right now'
 
   const openShow = getShow(openId ?? '')
   // The week/month toggle only applies to time-based views.
@@ -36,7 +45,7 @@ export default function App() {
           <span className="dot" />
           <div>
             <h1>{TITLES[tab]}</h1>
-            {tab === 'home' && <div className="sub">What to watch, right now</div>}
+            {tab === 'home' && <div className="sub">{subtitle}</div>}
           </div>
         </div>
         {showToggle && <TimeToggle value={range} onChange={setRange} />}

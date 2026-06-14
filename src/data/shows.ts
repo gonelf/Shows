@@ -1,12 +1,11 @@
 import type { ReviewTier, Show, TimeRange } from '../types'
 
 /**
- * The "current" date the whole app reasons about. Centralised here so the
- * dataset and the week/month filters stay in sync. In a production build this
- * would simply be `new Date()` and the catalogue would come from an API
- * (e.g. TMDB / Trakt) behind the same helpers exported below.
+ * The "current" date the whole app reasons about, so the dataset and the
+ * week/month filters stay in sync. Uses the real clock so live TMDB air dates
+ * resolve correctly; the sample catalogue below is built relative to it too.
  */
-export const TODAY = new Date('2026-06-14T00:00:00Z')
+export const TODAY = new Date()
 
 const DAY = 24 * 60 * 60 * 1000
 
@@ -16,11 +15,11 @@ function daysAgo(n: number): string {
 }
 
 /**
- * Mock catalogue. Realistic shape, fully self-contained so the app runs with
- * no API keys or network access. Swap `SHOWS` for a fetch() in one place and
- * every view keeps working.
+ * Sample catalogue. Realistic shape, fully self-contained so the app runs with
+ * no API keys or network access. When a TMDB token is configured the live data
+ * replaces this at runtime via `setShows` and every view keeps working.
  */
-export const SHOWS: Show[] = [
+export let SHOWS: Show[] = [
   {
     id: 'aurora-falls',
     title: 'Aurora Falls',
@@ -407,6 +406,12 @@ export function searchShows(query: string): Show[] {
   )
 }
 
-export const ALL_GENRES = Array.from(
-  new Set(SHOWS.flatMap((s) => s.genres)),
-).sort()
+/** Replace the catalogue at runtime (e.g. with live TMDB data). */
+export function setShows(next: Show[]): void {
+  SHOWS = next
+}
+
+/** Genres present in the current catalogue, sorted. Recomputed as data changes. */
+export function allGenres(): string[] {
+  return Array.from(new Set(SHOWS.flatMap((s) => s.genres))).sort()
+}

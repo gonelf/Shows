@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ALL_GENRES, SHOWS, searchShows } from '../data/shows'
+import { allGenres, SHOWS, searchShows } from '../data/shows'
 import { ListRow } from '../components/ListRow'
 import { EmptyState, Section } from '../components/Section'
 
@@ -28,7 +28,7 @@ export function SearchView({ onOpen }: { onOpen: (id: string) => void }) {
       </div>
 
       <div className="genre-chips">
-        {ALL_GENRES.map((g) => (
+        {allGenres().map((g) => (
           <button
             key={g}
             className={'pill' + (genre === g ? ' active' : '')}
