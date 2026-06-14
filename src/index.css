@@ -179,6 +179,15 @@ button {
   isolation: isolate;
 }
 
+.poster .art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
 .poster::after {
   content: '';
   position: absolute;
@@ -271,6 +280,20 @@ button {
   justify-content: center;
   font-size: 24px;
   position: relative;
+  overflow: hidden;
+}
+
+.row .thumb .art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.row .thumb .motif {
+  position: relative;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.55));
 }
 
 .row .rank-n {
@@ -520,6 +543,13 @@ button {
   display: flex;
   align-items: flex-end;
   overflow: hidden;
+}
+.sheet .hero .art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .sheet .hero::after {
   content: '';

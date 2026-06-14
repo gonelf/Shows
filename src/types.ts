@@ -25,4 +25,10 @@ export interface Show {
   seasons: number
   /** Emoji motif used to render the gradient poster artwork. */
   emoji: string
+  /**
+   * Cover image URL. Optional — when omitted the UI falls back to generated
+   * poster art (see `coverArt`). A live API (e.g. TMDB / Trakt) would populate
+   * this with a real poster URL.
+   */
+  cover?: string
 }
